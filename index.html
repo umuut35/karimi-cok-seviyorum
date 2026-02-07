@@ -19,6 +19,9 @@
 
     .container {
       text-align: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
 
     h1 {
@@ -42,6 +45,7 @@
 
     #no {
       background-color: #cccccc;
+      position: absolute;
     }
 
     #gif {
@@ -77,19 +81,26 @@
 
     let scale = 1;
 
+    // Hayır butonu kaçıyor
+    noBtn.addEventListener("mouseenter", () => {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    // Hayır tıklayınca Evet büyüsün ve Hayır küçülsün
     noBtn.addEventListener("click", () => {
-      scale += 0.3; // 6–7 tıklamada dev olsun
+      scale += 0.3;
       yesBtn.style.transform = `scale(${scale})`;
 
-      // Hayır butonu küçülsün
       const noScale = Math.max(0.4, 1 - scale / 4);
       noBtn.style.transform = `scale(${noScale})`;
     });
 
+    // Evet’e basınca GIF göster, butonları gizle
     yesBtn.addEventListener("click", () => {
       gif.style.display = "block";
-
-      // Butonları gizle
       yesBtn.style.display = "none";
       noBtn.style.display = "none";
     });
