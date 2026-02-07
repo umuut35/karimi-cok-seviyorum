@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Bir Sorum Var 💖</title>
+  <title>Beni Seviyon mu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -35,17 +35,18 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     #yes {
       background-color: #ff4d6d;
       color: white;
+      z-index: 1;
     }
 
     #no {
       background-color: #cccccc;
-      position: absolute;
+      z-index: 0;
     }
 
     #gif {
@@ -63,14 +64,14 @@
 <body>
 
   <div class="container">
-    <h1>Benimle çıkar mısın? 💕</h1>
+    <h1>Forgive me karıcığım </h1>
 
     <button id="yes">Evet</button>
     <button id="no">Hayır</button>
 
     <div id="gif">
       <img src="askim.gif" alt="Mutluluk">
-      <h2>Yaa yaşasın 😍💖</h2>
+      <h2>Seni çok seviyorum karımm </h2>
     </div>
   </div>
 
@@ -79,26 +80,30 @@
     const noBtn = document.getElementById("no");
     const gif = document.getElementById("gif");
 
-    let scale = 1;
+    let clickCount = 0;
+    const maxClicks = 5;
 
-    // Hayır butonu kaçıyor
-    noBtn.addEventListener("mouseenter", () => {
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
-    });
-
-    // Hayır tıklayınca Evet büyüsün ve Hayır küçülsün
     noBtn.addEventListener("click", () => {
-      scale += 0.3;
+      clickCount++;
+      const scale = 1 + 0.3 * clickCount;
+
       yesBtn.style.transform = `scale(${scale})`;
 
-      const noScale = Math.max(0.4, 1 - scale / 4);
-      noBtn.style.transform = `scale(${noScale})`;
+      if (clickCount >= maxClicks) {
+        // 5. tıklamada evet butonu tüm ekran
+        yesBtn.style.position = "absolute";
+        yesBtn.style.top = 0;
+        yesBtn.style.left = 0;
+        yesBtn.style.width = "100vw";
+        yesBtn.style.height = "100vh";
+        yesBtn.style.fontSize = "3rem";
+        yesBtn.style.borderRadius = "0";
+        yesBtn.style.zIndex = 999;
+
+        noBtn.style.display = "none"; // Hayır butonunu gizle
+      }
     });
 
-    // Evet’e basınca GIF göster, butonları gizle
     yesBtn.addEventListener("click", () => {
       gif.style.display = "block";
       yesBtn.style.display = "none";
