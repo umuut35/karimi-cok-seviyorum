@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bir Sorum Var 💖</title>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: #ffe6f0;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background-color: #ccc;
+    }
+
+    #gif {
+      display: none;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Benimle çıkar mısın? 💕</h1>
+
+  <button id="yes">Evet</button>
+  <button id="no">Hayır</button>
+
+  <div id="gif">
+    <img src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif" width="250">
+    <h2>Yaa yaşasın 😍💖</h2>
+  </div>
+</div>
+
+<script>
+  const yesBtn = document.getElementById("yes");
+  const noBtn = document.getElementById("no");
+  const gif = document.getElementById("gif");
+
+  let yesSize = 18;
+  let noSize = 18;
+
+  noBtn.addEventListener("click", () => {
+    yesSize += 5;
+    noSize -= 2;
+
+    yesBtn.style.fontSize = yesSize + "px";
+    noBtn.style.fontSize = Math.max(noSize, 10) + "px";
+  });
+
+  yesBtn.addEventListener("click", () => {
+    gif.style.display = "block";
+  });
+</script>
+
+</body>
+</html>
