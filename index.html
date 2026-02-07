@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Beni seviyon mu </title>
+  <title>Karımı çok seviyom </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -43,6 +43,8 @@
       background-color: #ff4d6d;
       color: white;
       z-index: 1;
+      width: 150px;
+      height: 50px;
     }
 
     #no {
@@ -52,7 +54,6 @@
 
     #gif {
       display: none;
-      margin-top: 30px;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -80,7 +81,7 @@
 <body>
 
   <div class="container">
-    <h1>Forgive me karıcığım</h1>
+    <h1>Şemso için beni affet 💕</h1>
 
     <button id="yes">Evet</button>
     <button id="no">Hayır</button>
@@ -96,13 +97,21 @@
     let clickCount = 0;
     const maxClicks = 5;
 
+    const baseWidth = 150;  // px
+    const baseHeight = 50;  // px
+    const baseFontSize = 18; // px
+
     noBtn.addEventListener("click", () => {
       clickCount++;
-      const scale = 1 + 0.3 * clickCount;
 
-      yesBtn.style.transform = `scale(${scale})`;
-
-      if (clickCount >= maxClicks) {
+      if (clickCount < maxClicks) {
+        // Orantılı büyüme: her tıklamada %20 artacak
+        const factor = 1 + 0.2 * clickCount;
+        yesBtn.style.width = baseWidth * factor + "px";
+        yesBtn.style.height = baseHeight * factor + "px";
+        yesBtn.style.fontSize = baseFontSize * factor + "px";
+      } else {
+        // 5. tıklamada tam ekran
         yesBtn.style.position = "absolute";
         yesBtn.style.top = 0;
         yesBtn.style.left = 0;
@@ -112,7 +121,7 @@
         yesBtn.style.borderRadius = "0";
         yesBtn.style.zIndex = 999;
 
-        noBtn.style.display = "none";
+        noBtn.style.display = "none"; // Hayır butonunu gizle
       }
     });
 
@@ -123,7 +132,7 @@
       noBtn.style.display = "none";
 
       // Köpek balığı emoji oluştur ve animasyon başlat
-      for(let i = 0; i < 5; i++) { // 5 tane köpek balığı
+      for(let i = 0; i < 5; i++) {
         const shark = document.createElement("div");
         shark.className = "shark";
         shark.innerText = "🦈";
