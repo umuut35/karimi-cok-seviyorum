@@ -28,10 +28,34 @@
       margin-bottom: 20px;
     }
 
-    #gifSad {
-      max-width: 300px;
+    #gifSad, #gifLove {
       border-radius: 12px;
       margin-bottom: 20px;
+    }
+
+    #gifSad {
+      max-width: 300px;
+    }
+
+    #gifLove {
+      display: none;
+      max-width: 80vw;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+    }
+
+    #gifText {
+      display: none;
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #ff4d6d;
+      z-index: 999;
     }
 
     button {
@@ -62,25 +86,33 @@
   <div class="container">
     <h1>Şemso için beni affet </h1>
 
+    <!-- Başlangıçta gösterilen sad.gif -->
     <img id="gifSad" src="sad.gif" alt="Üzgün GIF">
 
     <div>
       <button id="yes">Evet</button>
       <button id="no">Hayır</button>
     </div>
+
+    <!-- Evet’e basınca gösterilecek askim.gif ve yazı -->
+    <img id="gifLove" src="askim.gif" alt="Mutluluk GIF">
+    <div id="gifText">Seni çok seviyom karıcığımm</div>
   </div>
 
   <script>
     const yesBtn = document.getElementById("yes");
     const noBtn = document.getElementById("no");
+    const gifSad = document.getElementById("gifSad");
+    const gifLove = document.getElementById("gifLove");
+    const gifText = document.getElementById("gifText");
 
     let clickCount = 0;
-    const maxClicks = 5;
 
     const baseWidth = 150;
     const baseHeight = 50;
     const baseFontSize = 18;
 
+    // Hayır butonu tıklama
     noBtn.addEventListener("click", () => {
       clickCount++;
 
@@ -92,14 +124,24 @@
 
       // Hayır butonunu rastgele konuma taşı
       const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50) + 50; // üst padding için 50px
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50) + 50;
       noBtn.style.position = "absolute";
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     });
 
+    // Evet butonu tıklama
     yesBtn.addEventListener("click", () => {
-      alert("Yaa yaşasın! 💖"); // Evet’e basınca bir şey yapmak için
+      // Başlangıç GIF’i gizle
+      gifSad.style.display = "none";
+
+      // askim.gif ve yazıyı göster
+      gifLove.style.display = "block";
+      gifText.style.display = "block";
+
+      // Butonları gizle
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
     });
   </script>
 
