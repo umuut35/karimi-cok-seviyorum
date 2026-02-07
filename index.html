@@ -10,52 +10,24 @@
       height: 100vh;
       margin: 0;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
       font-family: Arial, sans-serif;
       background: #ffe6f0;
       overflow: hidden;
-      padding-top: 50px;
-      position: relative;
-    }
-
-    .container {
-      text-align: center;
       position: relative;
     }
 
     h1 {
+      margin-top: 30px;
       margin-bottom: 20px;
-    }
-
-    #gifSad, #gifLove {
-      border-radius: 12px;
-      margin-bottom: 20px;
+      text-align: center;
     }
 
     #gifSad {
       max-width: 300px;
-    }
-
-    #gifLove {
-      display: none;
-      max-width: 80vw;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 999;
-    }
-
-    #gifText {
-      display: none;
-      position: absolute;
-      top: 65%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: #ff4d6d;
-      z-index: 999;
+      border-radius: 12px;
+      margin-bottom: 20px;
     }
 
     button {
@@ -79,25 +51,49 @@
     #no {
       background-color: #cccccc;
     }
+
+    /* Evet’e basınca gösterilecek gif ve yazı */
+    #gifLove {
+      display: none;
+      position: fixed; /* fixed ile ekran ortasında */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 80vw;
+      border-radius: 12px;
+      z-index: 999;
+    }
+
+    #gifText {
+      display: none;
+      position: fixed;
+      top: calc(50% + 45%); /* gif’in altına biraz boşluk bırak */
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #ff4d6d;
+      z-index: 999;
+      text-align: center;
+      white-space: nowrap;
+    }
+
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Şemso için beni affet </h1>
+  <h1>Şemso için beni affet 💕</h1>
 
-    <!-- Başlangıçta gösterilen sad.gif -->
-    <img id="gifSad" src="sad.gif" alt="Üzgün GIF">
+  <!-- Başlangıçta gösterilen sad.gif -->
+  <img id="gifSad" src="sad.gif" alt="Üzgün GIF">
 
-    <div>
-      <button id="yes">Evet</button>
-      <button id="no">Hayır</button>
-    </div>
-
-    <!-- Evet’e basınca gösterilecek askim.gif ve yazı -->
-    <img id="gifLove" src="askim.gif" alt="Mutluluk GIF">
-    <div id="gifText">Seni çok seviyom karıcığımm</div>
+  <div>
+    <button id="yes">Evet</button>
+    <button id="no">Hayır</button>
   </div>
+
+  <!-- Evet’e basınca gösterilecek askim.gif ve yazı -->
+  <img id="gifLove" src="askim.gif" alt="Mutluluk GIF">
+  <div id="gifText">Seni çok seviyorum karımm</div>
 
   <script>
     const yesBtn = document.getElementById("yes");
@@ -123,9 +119,11 @@
       yesBtn.style.fontSize = baseFontSize * factor + "px";
 
       // Hayır butonunu rastgele konuma taşı
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50) + 50;
-      noBtn.style.position = "absolute";
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.position = "fixed";
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     });
@@ -143,6 +141,7 @@
       yesBtn.style.display = "none";
       noBtn.style.display = "none";
     });
+
   </script>
 
 </body>
