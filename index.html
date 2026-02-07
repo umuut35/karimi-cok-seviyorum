@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Karımı çok seviyom </title>
+  <title>Karımı çok seviyom</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -11,137 +11,95 @@
       margin: 0;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       font-family: Arial, sans-serif;
       background: #ffe6f0;
       overflow: hidden;
+      padding-top: 50px;
       position: relative;
     }
 
     .container {
       text-align: center;
       position: relative;
-      width: 100%;
-      height: 100%;
     }
 
     h1 {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+    }
+
+    #gifSad {
+      max-width: 300px;
+      border-radius: 12px;
+      margin-bottom: 20px;
     }
 
     button {
       font-size: 18px;
-      padding: 15px 30px;
+      padding: 12px 25px;
       margin: 10px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     #yes {
       background-color: #ff4d6d;
       color: white;
-      z-index: 1;
       width: 150px;
       height: 50px;
     }
 
     #no {
       background-color: #cccccc;
-      z-index: 0;
-    }
-
-    #gif {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 80vw;
-      border-radius: 12px;
-      z-index: 999;
-    }
-
-    .shark {
-      position: absolute;
-      font-size: 2rem;
-      pointer-events: none;
-      animation: swim 5s linear infinite;
-      z-index: 1000;
-    }
-
-    @keyframes swim {
-      0% { transform: translateX(-10vw) translateY(0); }
-      50% { transform: translateX(110vw) translateY(20vh); }
-      100% { transform: translateX(-10vw) translateY(0); }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>Şemso için beni affet 💕</h1>
+    <h1>Şemso için beni affet </h1>
 
-    <button id="yes">Evet</button>
-    <button id="no">Hayır</button>
+    <img id="gifSad" src="sad.gif" alt="Üzgün GIF">
 
-    <img id="gif" src="askim.gif" alt="Mutluluk">
+    <div>
+      <button id="yes">Evet</button>
+      <button id="no">Hayır</button>
+    </div>
   </div>
 
   <script>
     const yesBtn = document.getElementById("yes");
     const noBtn = document.getElementById("no");
-    const gif = document.getElementById("gif");
 
     let clickCount = 0;
     const maxClicks = 5;
 
-    const baseWidth = 150;  // px
-    const baseHeight = 50;  // px
-    const baseFontSize = 18; // px
+    const baseWidth = 150;
+    const baseHeight = 50;
+    const baseFontSize = 18;
 
     noBtn.addEventListener("click", () => {
       clickCount++;
 
-      if (clickCount < maxClicks) {
-        // Orantılı büyüme: her tıklamada %20 artacak
-        const factor = 1 + 0.2 * clickCount;
-        yesBtn.style.width = baseWidth * factor + "px";
-        yesBtn.style.height = baseHeight * factor + "px";
-        yesBtn.style.fontSize = baseFontSize * factor + "px";
-      } else {
-        // 5. tıklamada tam ekran
-        yesBtn.style.position = "absolute";
-        yesBtn.style.top = 0;
-        yesBtn.style.left = 0;
-        yesBtn.style.width = "100vw";
-        yesBtn.style.height = "100vh";
-        yesBtn.style.fontSize = "3rem";
-        yesBtn.style.borderRadius = "0";
-        yesBtn.style.zIndex = 999;
+      // Evet butonunu biraz büyüt
+      const factor = 1 + 0.1 * clickCount;
+      yesBtn.style.width = baseWidth * factor + "px";
+      yesBtn.style.height = baseHeight * factor + "px";
+      yesBtn.style.fontSize = baseFontSize * factor + "px";
 
-        noBtn.style.display = "none"; // Hayır butonunu gizle
-      }
+      // Hayır butonunu rastgele konuma taşı
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50) + 50; // üst padding için 50px
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
     });
 
     yesBtn.addEventListener("click", () => {
-      gif.style.display = "block";
-      gif.style.maxWidth = "90vw"; // biraz daha büyük
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
-
-      // Köpek balığı emoji oluştur ve animasyon başlat
-      for(let i = 0; i < 5; i++) {
-        const shark = document.createElement("div");
-        shark.className = "shark";
-        shark.innerText = "🦈";
-        shark.style.top = Math.random() * window.innerHeight * 0.8 + "px";
-        document.body.appendChild(shark);
-
-        // Rastgele animasyon süresi
-        shark.style.animationDuration = 4 + Math.random() * 3 + "s";
-      }
+      alert("Yaa yaşasın! 💖"); // Evet’e basınca bir şey yapmak için
     });
   </script>
 
