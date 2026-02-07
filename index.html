@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Beni Seviyon mu</title>
+  <title>Beni seviyon mu </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -15,6 +15,7 @@
       font-family: Arial, sans-serif;
       background: #ffe6f0;
       overflow: hidden;
+      position: relative;
     }
 
     .container {
@@ -52,27 +53,39 @@
     #gif {
       display: none;
       margin-top: 30px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 80vw;
+      border-radius: 12px;
+      z-index: 999;
     }
 
-    #gif img {
-      width: 280px;
-      max-width: 90vw;
-      border-radius: 12px;
+    .shark {
+      position: absolute;
+      font-size: 2rem;
+      pointer-events: none;
+      animation: swim 5s linear infinite;
+      z-index: 1000;
+    }
+
+    @keyframes swim {
+      0% { transform: translateX(-10vw) translateY(0); }
+      50% { transform: translateX(110vw) translateY(20vh); }
+      100% { transform: translateX(-10vw) translateY(0); }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>Forgive me karıcığım </h1>
+    <h1>Forgive me karıcığım</h1>
 
     <button id="yes">Evet</button>
     <button id="no">Hayır</button>
 
-    <div id="gif">
-      <img src="askim.gif" alt="Mutluluk">
-      <h2>Seni çok seviyorum karımm </h2>
-    </div>
+    <img id="gif" src="askim.gif" alt="Mutluluk">
   </div>
 
   <script>
@@ -90,7 +103,6 @@
       yesBtn.style.transform = `scale(${scale})`;
 
       if (clickCount >= maxClicks) {
-        // 5. tıklamada evet butonu tüm ekran
         yesBtn.style.position = "absolute";
         yesBtn.style.top = 0;
         yesBtn.style.left = 0;
@@ -100,14 +112,27 @@
         yesBtn.style.borderRadius = "0";
         yesBtn.style.zIndex = 999;
 
-        noBtn.style.display = "none"; // Hayır butonunu gizle
+        noBtn.style.display = "none";
       }
     });
 
     yesBtn.addEventListener("click", () => {
       gif.style.display = "block";
+      gif.style.maxWidth = "90vw"; // biraz daha büyük
       yesBtn.style.display = "none";
       noBtn.style.display = "none";
+
+      // Köpek balığı emoji oluştur ve animasyon başlat
+      for(let i = 0; i < 5; i++) { // 5 tane köpek balığı
+        const shark = document.createElement("div");
+        shark.className = "shark";
+        shark.innerText = "🦈";
+        shark.style.top = Math.random() * window.innerHeight * 0.8 + "px";
+        document.body.appendChild(shark);
+
+        // Rastgele animasyon süresi
+        shark.style.animationDuration = 4 + Math.random() * 3 + "s";
+      }
     });
   </script>
 
