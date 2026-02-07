@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Bir Sorum Var 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       height: 100vh;
@@ -12,6 +14,7 @@
       align-items: center;
       font-family: Arial, sans-serif;
       background: #ffe6f0;
+      overflow: hidden;
     }
 
     .container {
@@ -27,9 +30,9 @@
       padding: 15px 30px;
       margin: 10px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     #yes {
@@ -38,49 +41,59 @@
     }
 
     #no {
-      background-color: #ccc;
+      background-color: #cccccc;
     }
 
     #gif {
       display: none;
       margin-top: 30px;
     }
+
+    #gif img {
+      width: 280px;
+      max-width: 90vw;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Benimle çıkar mısın? 💕</h1>
+  <div class="container">
+    <h1>Benimle çıkar mısın? 💕</h1>
 
-  <button id="yes">Evet</button>
-  <button id="no">Hayır</button>
+    <button id="yes">Evet</button>
+    <button id="no">Hayır</button>
 
-  <div id="gif">
-    <img src="askim.gif" width="250">
-    <h2>Yaa yaşasın 😍💖</h2>
+    <div id="gif">
+      <img src="askim.gif" alt="Mutluluk">
+      <h2>Yaa yaşasın 😍💖</h2>
+    </div>
   </div>
-</div>
 
-<script>
-  const yesBtn = document.getElementById("yes");
-  const noBtn = document.getElementById("no");
-  const gif = document.getElementById("gif");
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const gif = document.getElementById("gif");
 
-  let yesSize = 18;
-  let noSize = 18;
+    let scale = 1;
 
-  noBtn.addEventListener("click", () => {
-    yesSize += 5;
-    noSize -= 2;
+    noBtn.addEventListener("click", () => {
+      scale += 0.3; // 6–7 tıklamada dev olsun
+      yesBtn.style.transform = `scale(${scale})`;
 
-    yesBtn.style.fontSize = yesSize + "px";
-    noBtn.style.fontSize = Math.max(noSize, 10) + "px";
-  });
+      // Hayır butonu küçülsün
+      const noScale = Math.max(0.4, 1 - scale / 4);
+      noBtn.style.transform = `scale(${noScale})`;
+    });
 
-  yesBtn.addEventListener("click", () => {
-    gif.style.display = "block";
-  });
-</script>
+    yesBtn.addEventListener("click", () => {
+      gif.style.display = "block";
+
+      // Butonları gizle
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    });
+  </script>
 
 </body>
 </html>
